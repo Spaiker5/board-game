@@ -1,17 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+//jshint esversion: 6
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
+
+
+const app = express();
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
 );
+app.use(express.static("public"));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+
+
+
+app.get("/", function (req, res) {
+res.sendFile(__dirname + "/index.html");
+});
+
+
+app.post("/index.html", function (req, res) {
+res.sendFile(__dirname + "board.html")
+});
+
+
+
+
+
+
+app.listen(3000, function() {
+  console.log("Server onport 3000");
+});
